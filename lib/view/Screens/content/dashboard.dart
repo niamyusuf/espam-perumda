@@ -185,7 +185,7 @@ class _DashboardState extends State<Dashboard> {
           Expanded(
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -247,18 +247,44 @@ class _DashboardState extends State<Dashboard> {
                     const SizedBox(
                       height: 10,
                     ),
-                    // const Text("Menu"),
-                    _buildGoServicesMenu(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _rowMenuService(_menuServiceList[0]),
+                              _rowMenuService(_menuServiceList[1]),
+                              _rowMenuService(_menuServiceList[2]),
+                            ],
+                          ),
+                          const SizedBox(
+                      height: 10,
+                    ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                               _rowMenuService(_menuServiceList[3]),
+                              _rowMenuService(_menuServiceList[4]),
+                              _rowMenuService(_menuServiceList[5]),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
+                    
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomCarouselSlider(
                           items: itemList,
                           height: 150,
                           subHeight: 50,
-                          width: MediaQuery.of(context).size.width * .85,
+                          width: MediaQuery.of(context).size.width * .95,
                           autoplay: true,
                         ),
                       ],
@@ -276,14 +302,14 @@ class _DashboardState extends State<Dashboard> {
   Widget _buildGoServicesMenu() {
     return SizedBox(
       width: double.infinity,
-      height: 300.0,
+      height: MediaQuery.of(context).size.height*0.4,
       child: Container(
         margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
         child: GridView.builder(
           physics: const ClampingScrollPhysics(),
           itemCount: 6,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3),
+              crossAxisCount: 4),
           itemBuilder: (context, position) {
             return _rowMenuService(_menuServiceList[position]);
           },
@@ -308,7 +334,7 @@ class _DashboardState extends State<Dashboard> {
             child: Icon(
               menuService.image,
               color: menuService.color,
-              size: 32.0,
+              size: 32,
             ),
           ),
         ),

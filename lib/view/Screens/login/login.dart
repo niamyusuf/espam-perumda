@@ -1,3 +1,4 @@
+import 'package:espam/view/Screens/Widget/button.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -47,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 150,
                     ),
                     const SizedBox(height: 40),
+                    
                     TextFormField(
                       autocorrect: false,
                       keyboardType: TextInputType.text,
@@ -57,8 +59,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         labelText: 'Email',
                         filled: true,
-                        border: InputBorder.none,
                         fillColor: Colors.grey[200],
+                        border: const OutlineInputBorder(),
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical:
+                              16, // Ubah ukuran vertikal sesuai keinginan Anda
+                          horizontal:
+                              10, // Ubah ukuran horizontal sesuai keinginan Anda
+                        ),
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -80,7 +88,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         labelText: 'Password',
                         filled: true,
-                        border: InputBorder.none,
+                        border: const OutlineInputBorder(),
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical:
+                              16, // Ubah ukuran vertikal sesuai keinginan Anda
+                          horizontal:
+                              10, // Ubah ukuran horizontal sesuai keinginan Anda
+                        ),
                         fillColor: Colors.grey[200],
                       ),
                       obscureText: true,
@@ -92,25 +106,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                     const SizedBox(height: 20),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                      ),
-                      onPressed: () {
+                    InkWell(
+                      onTap: (){
                         if (_formKey.currentState!.validate()) {
-                          // Perform login logic here
-                          // If login is successful, navigate to next screen
-                          // Navigator.pushReplacementNamed(context, '/home');
                           Navigator.of(context).pushReplacementNamed("navbar");
                         }
                       },
-                      child: const Text(
-                        "Login",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.blue, width: 1.0),
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.blue,                    ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Center(child: Text("Login", style: TextStyle(color: Colors.white),)),
+                        ),
                       ),
-                    )
+                    ),
+                    
                   ],
                 ),
               ),
