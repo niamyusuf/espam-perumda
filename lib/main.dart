@@ -1,7 +1,7 @@
 import 'package:espam/view/Screens/content/dashboard.dart';
-import 'package:espam/view/Screens/content/frm_ajuan_rekomtek.dart';
 import 'package:flutter/material.dart';
 
+import 'view/Screens/content/timeline.dart';
 import 'view/Screens/login/login.dart';
 import 'fluid_nav_bar.dart';
 
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         "/": (ctx) => const LoginScreen(),
         "navbar": (ctx) => const Navbar(),
         "dasboard": (ctx) => const Dashboard(),
-        "ajuan_rktk": (ctx) => const FormAjuanRekomtek(),
+        "stsRekomtek": (ctx) => const TimeLine(),
       },
       // home: const LoginScreen(),
     );

@@ -1,4 +1,3 @@
-import 'package:espam/view/Screens/Widget/button.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,7 +8,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
   bool isSecure = true;
   bool lockStatus = false;
 
@@ -25,111 +23,167 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    // Orientation orientation = MediaQuery.of(context).orientation;
+
     return Scaffold(
-      body: Container(
-        // decoration: const BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage("assets/images/logo.png"),
-        //     fit: BoxFit.fitHeight,
-        //   ),
-        // ),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/images/tde.png",
-                      width: 150,
-                      height: 150,
-                    ),
-                    const SizedBox(height: 40),
-                    
-                    TextFormField(
-                      autocorrect: false,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        suffixIcon: const Icon(
-                          Icons.email,
-                          color: Colors.blueAccent,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Image.network(
+                  "http://180.250.162.129:8686/sim/assets/images/rekomtek/slide1.png"),
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 40.0),
+              // width: MediaQuery.of(context).size.width,
+              child: Card(
+                margin: const EdgeInsets.all(20.0),
+                color: Colors.transparent,
+                elevation: 0, //ketebalannya
+                // shape: RoundedRectangleBorder(
+                //   borderRadius: BorderRadius.circular(8),
+                //   side: BorderSide(color: Colors.black, width: 1.0)
+                // ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: screenSize.width * (5 / 100)),
                         ),
-                        labelText: 'Email',
-                        filled: true,
-                        fillColor: Colors.grey[200],
-                        border: const OutlineInputBorder(),
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical:
-                              16, // Ubah ukuran vertikal sesuai keinginan Anda
-                          horizontal:
-                              10, // Ubah ukuran horizontal sesuai keinginan Anda
+                        // Text(
+                        //   "Login${screenSize.width.toStringAsFixed(2)}",
+                        //   style: TextStyle(
+                        //       fontWeight: FontWeight.bold,
+                        //       fontSize: screenSize.width * (5 / 100)),
+                        // ),
+                      ),
+                      //textbox
+
+                      const TextField(
+                        autocorrect: false,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          suffixIcon: Icon(
+                            Icons.email,
+                            color: Colors.blueAccent,
+                          ),
+                          labelText: "Email", //set labelnya
+                          labelStyle: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontStyle: FontStyle.italic,
+                          ),
                         ),
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your Email';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      autocorrect: false,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          icon: (isSecure)
-                              ? const Icon(Icons.visibility)
-                              : const Icon(Icons.visibility_off),
-                          color: Colors.blueAccent,
-                          onPressed: () => lockTapped(lockStatus),
-                        ),
-                        labelText: 'Password',
-                        filled: true,
-                        border: const OutlineInputBorder(),
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical:
-                              16, // Ubah ukuran vertikal sesuai keinginan Anda
-                          horizontal:
-                              10, // Ubah ukuran horizontal sesuai keinginan Anda
-                        ),
-                        fillColor: Colors.grey[200],
-                      ),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your password ';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    InkWell(
-                      onTap: (){
-                        if (_formKey.currentState!.validate()) {
-                          Navigator.of(context).pushReplacementNamed("navbar");
-                        }
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.blue, width: 1.0),
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.blue,                    ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Center(child: Text("Login", style: TextStyle(color: Colors.white),)),
+                      //Password
+                      TextField(
+                        // obscureText: isSecure,
+                        autocorrect: false,
+                        // controller: passController,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: (isSecure)
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off),
+                            color: Colors.blueAccent,
+                            onPressed: () => lockTapped(lockStatus),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orangeAccent),
+                          ),
+                          labelText: "Password", //set labelnya
+                          labelStyle: const TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontStyle: FontStyle.italic,
+                          ),
                         ),
                       ),
-                    ),
-                    
-                  ],
+
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20, bottom: 5, left: 15.0),
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                            ),
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushReplacementNamed("navbar");
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: const Text(
+                                "Login",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      //untuk forgot password
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20, bottom: 5, right: 15.0),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Row(
+                            children: <Widget>[
+                              // Column(
+                              //   children: <Widget>[
+                              //     InkWell(
+                              //       child: const Text(
+                              //         "Register",
+                              //         style: TextStyle(
+                              //             color: Colors.orangeAccent,
+                              //             fontWeight: FontWeight.bold),
+                              //       ),
+                              //       onTap: () {
+                              //         Navigator.of(context)
+                              //             .pushReplacementNamed("navbar");
+                              //       },
+                              //     ),
+                              //   ],
+                              // ),
+                              const SizedBox(
+                                width: 25.0,
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  InkWell(
+                                    child: const Text(
+                                      "Forgot Password",
+                                      style: TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    onTap: () {},
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

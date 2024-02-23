@@ -12,45 +12,14 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  final List<MenuService> _menuServiceList = [
-    MenuService(
-      image: CupertinoIcons.doc_text,
-      title: "Pengajuan Rekomtek",
-      color: Colors.blueAccent,
-      halaman: "ajuan_rktk",
-    ),
-    MenuService(
-      image: CupertinoIcons.home,
-      title: "Pengajuan SPAM",
-      color: Colors.teal,
-      halaman: "",
-    ),
-    MenuService(
-      image: CupertinoIcons.building_2_fill,
-      title: "Alih Kelola",
-      color: Colors.orange,
-      halaman: "",
-    ),
-    MenuService(
-      image: CupertinoIcons.doc_on_doc,
-      title: "Surat Keterangan SIPA",
-      color: Colors.red,
-      halaman: "",
-    ),
-    MenuService(
-      image: CupertinoIcons.book,
-      title: "Daftar Perumahan",
-      color: Colors.blueAccent,
-      halaman: "",
-    ),
-    MenuService(
-      image: CupertinoIcons.repeat,
-      title: "Cek Status",
-      color: Colors.green,
-      halaman: "",
-    ),
-  ];
+ 
 
+  @override
+  void initState() {
+    super.initState();
+    print("Versi :");
+  }
+  
   List<CarouselItem> itemList = [
     CarouselItem(
       image: const NetworkImage(
@@ -138,11 +107,6 @@ class _DashboardState extends State<Dashboard> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     var sf = (5 / 100);
@@ -177,190 +141,155 @@ class _DashboardState extends State<Dashboard> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35.0),
-                  topRight: Radius.circular(35.0),
-                ),
-              ),
-              child: SingleChildScrollView(
-                //Your SingleChildScrollView Widget
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        // color: Color.fromARGB(255, 2, 68, 122),
-                        gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [
-                            Color.fromARGB(255, 2, 68, 122),
-                            Color.fromARGB(255, 72, 144, 251),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        // borderRadius: BorderRadius.only(
-                        //   bottomRight: Radius.circular(50),
-                        // ),
-                      ),
-                      child: Column(
-                        children: [
-                          // const SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
-                              // contentPadding: const EdgeInsets.symmetric(horizontal: 30),
-                              leading: const CircleAvatar(
-                                radius: 35,
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            // Container(
+            //   decoration: const BoxDecoration(
+            //     // color: Color.fromARGB(255, 2, 68, 122),
+            //     gradient: LinearGradient(
+            //       begin: Alignment.centerLeft,
+            //       end: Alignment.centerRight,
+            //       colors: [
+            //         Color.fromARGB(255, 19, 16, 228),
+            //         Color.fromARGB(255, 72, 144, 251),
+            //       ],
+            //     ),
+            //     borderRadius: BorderRadius.only(
+            //       bottomRight: Radius.circular(50),
+            //     ),
+            //   ),
+            //   child: Column(
+            //     children: [
+            //       const SizedBox(height: 10),
+            //       ListTile(
+            //         contentPadding: const EdgeInsets.symmetric(horizontal: 30),
+            //         leading: const CircleAvatar(
+            //           radius: 30,
 
-                                backgroundColor: Colors.white,
-                                child: Icon(Icons.accessibility),
-                                // backgroundImage: AssetImage('assets/images/user.JPG'),
-                              ),
-                              title: Text('Hello Ahad!',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall
-                                      ?.copyWith(color: Colors.white)),
-                              subtitle: Text('Good Morning',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(color: Colors.white54)),
-                            ),
-                          ),
-                          // const SizedBox(height: 30)
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _rowMenuService(_menuServiceList[0]),
-                              _rowMenuService(_menuServiceList[1]),
-                              _rowMenuService(_menuServiceList[2]),
-                            ],
-                          ),
-                          const SizedBox(
-                      height: 10,
-                    ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                               _rowMenuService(_menuServiceList[3]),
-                              _rowMenuService(_menuServiceList[4]),
-                              _rowMenuService(_menuServiceList[5]),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomCarouselSlider(
-                          items: itemList,
-                          height: 150,
-                          subHeight: 50,
-                          width: MediaQuery.of(context).size.width * .95,
-                          autoplay: true,
-                        ),
-                      ],
-                    ),
+            //           backgroundColor: Colors.white,
+            //           child: Icon(Icons.accessibility),
+            //           // backgroundImage: AssetImage('assets/images/user.JPG'),
+            //         ),
+            //         title: Text('Hello Ahad!',
+            //             style: Theme.of(context)
+            //                 .textTheme
+            //                 .headlineSmall
+            //                 ?.copyWith(color: Colors.white)),
+            //         subtitle: Text('Good Morning',
+            //             style: Theme.of(context)
+            //                 .textTheme
+            //                 .titleMedium
+            //                 ?.copyWith(color: Colors.white54)),
+            //         trailing: const CircleAvatar(
+            //           radius: 30,
+
+            //           backgroundColor: Colors.white,
+            //           child: Icon(Icons.person),
+            //           // backgroundImage: AssetImage('assets/images/user.JPG'),
+            //         ),
+            //       ),
+            //       const SizedBox(height: 30)
+            //     ],
+            //   ),
+            // ),
+            Image.network("http://180.250.162.129:8686/sim/assets/images/rekomtek/slide1.png"),
+            const SizedBox(height: 20),
+            SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                height: MediaQuery.of(context).size.height * .4,
+                child: GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                  children: [
+                    itemDashboard('Pengajuan \n Rekomtek', CupertinoIcons.doc_text,
+                        Colors.orange, 'stsRekomtek'),
+                    itemDashboard(
+                        'Data \n Perumahan', CupertinoIcons.book, Colors.blue, ''),
+                    itemDashboard(
+                        'Cek Status', CupertinoIcons.repeat, Colors.green, ''),
+                    itemDashboard('Pengajuan \n SPAM', CupertinoIcons.add_circled,
+                        Colors.teal, ''),
+                    itemDashboard('Tahapan \n Proses', CupertinoIcons.repeat,
+                        Colors.purple, ''),
+                    // itemDashboard('Revenue', CupertinoIcons.money_dollar_circle,
+                    //     Colors.indigo),
+                    // itemDashboard(
+                    //     'Upload', CupertinoIcons.add_circled, Colors.teal),
+                    // itemDashboard(
+                    //     'About', CupertinoIcons.question_circle, Colors.blue),
+                    itemDashboard(
+                        'Kontak', CupertinoIcons.phone, Colors.pinkAccent, ''),
                   ],
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildGoServicesMenu() {
-    return SizedBox(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height*0.4,
-      child: Container(
-        margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-        child: GridView.builder(
-          physics: const ClampingScrollPhysics(),
-          itemCount: 6,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4),
-          itemBuilder: (context, position) {
-            return _rowMenuService(_menuServiceList[position]);
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _rowMenuService(MenuService menuService) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        InkWell(
-          onTap: () {
-            Navigator.of(context).pushNamed(menuService.halaman);
-          },
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey, width: 1.0),
-                borderRadius: const BorderRadius.all(Radius.circular(20.0))),
-            padding: const EdgeInsets.all(13.0),
-            child: Icon(
-              menuService.image,
-              color: menuService.color,
-              size: 32,
+            // const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomCarouselSlider(
+                    items: itemList,
+                    height: 150,
+                    subHeight: 50,
+                    width: MediaQuery.of(context).size.width * .9,
+                    autoplay: true,
+                  ),
+                  // Image.asset(
+                  //   "assets/images/welcome.png",
+                  //   alignment: Alignment.center,
+                  //   width: MediaQuery.of(context).size.width * .91,
+                  //   height: MediaQuery.of(context).size.height * 0.21,
+                  // ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
-        const Padding(
-          padding: EdgeInsets.only(top: 6.0),
-        ),
-        Text(
-          menuService.title,
-          style: const TextStyle(fontSize: 10.0),
-          textAlign: TextAlign.center,
-          overflow: TextOverflow.fade,
-        ),
-      ],
+      ),
     );
   }
-}
 
-class MenuService {
-  IconData image;
-  Color color;
-  String title;
-  String halaman;
-
-  MenuService(
-      {required this.image,
-      required this.title,
-      required this.color,
-      required this.halaman});
+  itemDashboard(
+          String title, IconData iconData, Color background, String halaman) =>
+      InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed(halaman);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                    offset: const Offset(0, 5),
+                    color: Theme.of(context).primaryColor.withOpacity(.2),
+                    spreadRadius: 2,
+                    blurRadius: 2)
+              ]),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: background,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(iconData, color: Colors.white)),
+              const SizedBox(height: 8),
+              Text(title.toUpperCase(),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.fade,
+                  style: const TextStyle(fontSize: 11.0)),
+            ],
+          ),
+        ),
+      );
 }
