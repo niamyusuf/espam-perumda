@@ -4,8 +4,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 //Models
-part '../models/carousal_item.dart';
-part '../models/indicator.position.dart';
+part 'models/carousal_item.dart';
+part 'models/indicator.position.dart';
 
 class CustomCarouselSlider extends StatefulWidget {
   const CustomCarouselSlider({
@@ -228,8 +228,8 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
                       ? Positioned.fill(
                           bottom: 5,
                           child: Align(
-                            child: _buildIndicator(),
                             alignment: Alignment.bottomRight,
+                            child: _buildIndicator(),
                           ),
                         )
                       : Container(),
@@ -267,8 +267,8 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
                   children: [
                     const SizedBox(height: 5),
                     Align(
-                      child: _buildIndicator(),
                       alignment: Alignment.bottomRight,
+                      child: _buildIndicator(),
                     ),
                   ],
                 )

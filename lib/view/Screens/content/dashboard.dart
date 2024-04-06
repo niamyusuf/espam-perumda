@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,14 +11,12 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
- 
-
   @override
   void initState() {
     super.initState();
-    print("Versi :");
+    debugPrint("Versi :");
   }
-  
+
   List<CarouselItem> itemList = [
     CarouselItem(
       image: const NetworkImage(
@@ -108,8 +105,8 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-    var sf = (5 / 100);
+    // Size screenSize = MediaQuery.of(context).size;
+    // var sf = (5 / 100);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(65.0),
@@ -194,62 +191,168 @@ class _DashboardState extends State<Dashboard> {
             //     ],
             //   ),
             // ),
-            Image.network("http://180.250.162.129:8686/sim/assets/images/rekomtek/slide1.png"),
+            Image.network(
+                "http://180.250.162.129:8686/sim/assets/images/rekomtek/slide1.png"),
             const SizedBox(height: 20),
             SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.all(10),
                 height: MediaQuery.of(context).size.height * .4,
-                child: GridView.count(
-                  shrinkWrap: true,
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
+                child: Column(
                   children: [
-                    itemDashboard('Pengajuan \n Rekomtek', CupertinoIcons.doc_text,
-                        Colors.orange, 'stsRekomtek'),
-                    itemDashboard(
-                        'Data \n Perumahan', CupertinoIcons.book, Colors.blue, ''),
-                    itemDashboard(
-                        'Cek Status', CupertinoIcons.repeat, Colors.green, ''),
-                    itemDashboard('Pengajuan \n SPAM', CupertinoIcons.add_circled,
-                        Colors.teal, ''),
-                    itemDashboard('Tahapan \n Proses', CupertinoIcons.repeat,
-                        Colors.purple, ''),
-                    // itemDashboard('Revenue', CupertinoIcons.money_dollar_circle,
-                    //     Colors.indigo),
-                    // itemDashboard(
-                    //     'Upload', CupertinoIcons.add_circled, Colors.teal),
-                    // itemDashboard(
-                    //     'About', CupertinoIcons.question_circle, Colors.blue),
-                    itemDashboard(
-                        'Kontak', CupertinoIcons.phone, Colors.pinkAccent, ''),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        itemDashboard(
+                            'Info \n Rekomtek',
+                            CupertinoIcons.doc_text,
+                            Colors.orange,
+                            'listrekomtek'),
+                        itemDashboard('Info \n SPAM',
+                            CupertinoIcons.add_circled, Colors.teal, ''),
+                        itemDashboard('Info \n Alih Kelola',
+                            CupertinoIcons.book, Colors.blue, ''),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        itemDashboard('Persaratan \n Rekomtek',
+                            CupertinoIcons.repeat, Colors.purple, ''),
+                        itemDashboard('Persyaratan \n Alih Kelola',
+                            CupertinoIcons.repeat, Colors.green, ''),
+                      ],
+                    ),
                   ],
                 ),
+                // GridView.count(
+                //   shrinkWrap: true,
+                //   crossAxisCount: 3,
+                //   crossAxisSpacing: 20,
+                //   mainAxisSpacing: 20,
+                //   children: [
+                //     itemDashboard('Pengajuan \n Rekomtek', CupertinoIcons.doc_text,
+                //         Colors.orange, 'stsRekomtek'),
+                //     itemDashboard(
+                //         'Data \n Perumahan', CupertinoIcons.book, Colors.blue, ''),
+                //     itemDashboard(
+                //         'Cek Status', CupertinoIcons.repeat, Colors.green, ''),
+                //     itemDashboard('Pengajuan \n SPAM', CupertinoIcons.add_circled,
+                //         Colors.teal, ''),
+                //     itemDashboard('Tahapan \n Proses', CupertinoIcons.repeat,
+                //         Colors.purple, ''),
+                //     // itemDashboard('Revenue', CupertinoIcons.money_dollar_circle,
+                //     //     Colors.indigo),
+                //     // itemDashboard(
+                //     //     'Upload', CupertinoIcons.add_circled, Colors.teal),
+                //     // itemDashboard(
+                //     //     'About', CupertinoIcons.question_circle, Colors.blue),
+                //     itemDashboard(
+                //         'Kontak', CupertinoIcons.phone, Colors.pinkAccent, ''),
+                //   ],
+                // ),
               ),
             ),
             // const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomCarouselSlider(
-                    items: itemList,
-                    height: 150,
-                    subHeight: 50,
-                    width: MediaQuery.of(context).size.width * .9,
-                    autoplay: true,
-                  ),
-                  // Image.asset(
-                  //   "assets/images/welcome.png",
-                  //   alignment: Alignment.center,
-                  //   width: MediaQuery.of(context).size.width * .91,
-                  //   height: MediaQuery.of(context).size.height * 0.21,
-                  // ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: ListView(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(
+                        "Layanan",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold,),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 150,
+                      child: ListView(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            width: 300,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.black12,
+                              image: const DecorationImage(
+                                image: NetworkImage(
+                                  "http://180.250.162.129:8686/sim/assets/images/rekomtek/rekomtek_spam.jpg",
+                                ),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            width: 300,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.black12,
+                              image: const DecorationImage(
+                                image: NetworkImage(
+                                  "http://180.250.162.129:8686/sim/assets/images/rekomtek/rekomtek_sipa.jpg",
+                                ),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(10),
+                            width: 300,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.black12,
+                              image: const DecorationImage(
+                                image: NetworkImage(
+                                  "http://180.250.162.129:8686/sim/assets/images/rekomtek/rekomtek_alih_kelola.jpg",
+                                ),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
+              ],
             ),
+            // Padding(
+            //   padding: const EdgeInsets.all(10.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       CustomCarouselSlider(
+            //         items: itemList,
+            //         height: 150,
+            //         subHeight: 50,
+            //         width: MediaQuery.of(context).size.width * .9,
+            //         autoplay: true,
+            //       ),
+            //       // Image.asset(
+            //       //   "assets/images/welcome.png",
+            //       //   alignment: Alignment.center,
+            //       //   width: MediaQuery.of(context).size.width * .91,
+            //       //   height: MediaQuery.of(context).size.height * 0.21,
+            //       // ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -263,16 +366,18 @@ class _DashboardState extends State<Dashboard> {
           Navigator.of(context).pushNamed(halaman);
         },
         child: Container(
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                    offset: const Offset(0, 5),
-                    color: Theme.of(context).primaryColor.withOpacity(.2),
-                    spreadRadius: 2,
-                    blurRadius: 2)
-              ]),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            // boxShadow: [
+            //   BoxShadow(
+            //       offset: const Offset(0, 5),
+            //       color: Theme.of(context).primaryColor.withOpacity(.2),
+            //       spreadRadius: 2,
+            //       blurRadius: 2)
+            // ],
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -282,12 +387,16 @@ class _DashboardState extends State<Dashboard> {
                     color: background,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(iconData, color: Colors.white)),
+                  child: Icon(
+                    iconData,
+                    color: Colors.white,
+                    size: 35,
+                  )),
               const SizedBox(height: 8),
               Text(title.toUpperCase(),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.fade,
-                  style: const TextStyle(fontSize: 11.0)),
+                  style: const TextStyle(fontSize: 14.0)),
             ],
           ),
         ),

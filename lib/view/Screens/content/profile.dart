@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -8,6 +9,23 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String? nama;
+  String? alamat;
+
+  void getProfile()async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    debugPrint(pref.getString('alamat'));
+    setState(() {
+      nama    = pref.getString('nama');
+      alamat  = pref.getString('alamat');  
+    });
+    
+  }
+  @override
+  void initState() {
+    super.initState();
+    getProfile();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +40,7 @@ class _ProfileState extends State<Profile> {
                 height: 200,
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
-                    color: Colors.green
+                    color: Color.fromARGB(255, 2, 68, 122),
                     ),
                 child: const Padding(
                   padding: EdgeInsets.all(50.0),
@@ -44,8 +62,8 @@ class _ProfileState extends State<Profile> {
                   //   BoxShadow(color: Colors.black, blurRadius: 25.0),
                   // ],
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(18.0),
+                child:  Padding(
+                  padding: const EdgeInsets.all(18.0),
                   child: Column(
                     children: [
                       Row(
@@ -53,9 +71,9 @@ class _ProfileState extends State<Profile> {
                           Expanded(
                             child: Card(
                               child: ListTile(
-                                leading: Icon(Icons.person),
-                                title: Text("Nama"),
-                                subtitle: Text("Alamat"),
+                                leading: const Icon(Icons.person),
+                                title: Text("Nama : $nama"),
+                                subtitle: Text("Alamat : $alamat"),
                               ),
                             ),
                           ),

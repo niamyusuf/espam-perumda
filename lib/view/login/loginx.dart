@@ -1,6 +1,6 @@
 import 'package:espam/fluid_nav_bar.dart';
 import 'package:flutter/material.dart';
-import '../Widget/bezierContainer.dart';
+import '../Screens/Widget/bezier_container.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

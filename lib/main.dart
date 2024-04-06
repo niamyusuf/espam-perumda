@@ -1,8 +1,10 @@
 import 'package:espam/view/Screens/content/dashboard.dart';
+import 'package:espam/view/timeline/listrekomtek.dart';
+import 'package:espam/view/timeline/tl_rekomtek.dart';
 import 'package:flutter/material.dart';
 
 import 'view/Screens/content/timeline.dart';
-import 'view/Screens/login/login.dart';
+import 'view/login/login.dart';
 import 'fluid_nav_bar.dart';
 
 void main() {
@@ -28,7 +30,8 @@ class MyApp extends StatelessWidget {
         "/": (ctx) => const LoginScreen(),
         "navbar": (ctx) => const Navbar(),
         "dasboard": (ctx) => const Dashboard(),
-        "stsRekomtek": (ctx) => const TimeLine(),
+        "listrekomtek": (ctx) => const ListRekomtek(),
+        "stsRekomtek": (ctx) => const TlSpam(nodaftar: '',),
       },
       // home: const LoginScreen(),
     );

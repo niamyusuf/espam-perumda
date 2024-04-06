@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../controller/UserController.dart';
+import '../../controller/user_controller.dart';
 
 class UserView extends StatefulWidget {
   const UserView({super.key});
@@ -10,25 +10,25 @@ class UserView extends StatefulWidget {
 }
 
 class _UserViewState extends State<UserView> {
-  final _userController = new UserController();
+  final _userController =  UserController();
 
   Future _allUser() async {
     try {
       var userList = await _userController.getAll();
-      userList.forEach((user) {
-        print(user.toJson());
-      });
+      for (var user in userList) {
+        debugPrint(user.toJson().toString());
+      }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
   Future _oneUser() async {
     try {
       var user = await _userController.getOne(1);
-      print(user.toJson());
+      debugPrint(user.toJson().toString());
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -42,9 +42,9 @@ class _UserViewState extends State<UserView> {
     };
     try {
       var user = await _userController.post(newUser);
-      print(user.toJson());
+      debugPrint(user.toJson().toString());
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -58,18 +58,18 @@ class _UserViewState extends State<UserView> {
     };
     try {
       var user = await _userController.put(2, editUser);
-      print(user.toJson());
+      debugPrint(user.toJson().toString());
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
   Future _delete() async {
     try {
       var result = await _userController.delete(2);
-      print(result);
+      debugPrint(result.toString());
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 

@@ -1,4 +1,7 @@
+import 'package:espam/controller/controller_login/login_controller.dart';
+import 'package:espam/view/Screens/Widget/msgbox.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,6 +14,71 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isSecure = true;
   bool lockStatus = false;
 
+  final loginController = LoginController();
+  String? code;
+  bool? isLogin;
+  int? iduser;
+
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  // final Future<SharedPreferences> _pref = SharedPreferences.getInstance();
+
+  login() async {
+    // isLogin = false;
+
+    Map<String, dynamic> newLogin = {
+      "email": email.text,
+      "password": password.text
+    };
+
+    final user = await loginController.login(newLogin);
+    debugPrint(user.toJson().toString());
+    debugPrint(user.code);
+    // debugPrint(user.data[0].iduser);
+    setState(() {
+      code = user.code;
+    });
+
+    if (user.code == '200') {
+      isLogin = true;
+      _saveLoginSuccess(user.data[0].iduser, user.data[0].nama, user.data[0].alamat);
+
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      debugPrint(pref.getString('nama'));
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushReplacementNamed('navbar');
+    } else {
+      isLogin = false;
+
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MsgBoxOk(
+            title: 'Login Gagal',
+            content: 'Periksa kembali email dan password.',
+            onConfirm: () {
+              // Handle confirmation action here
+              Navigator.of(context).pop(); // Close the dialog
+            },
+          );
+        },
+      );
+    }
+
+  }
+
+  void _saveLoginSuccess(
+    String iduser,
+    String nama,
+    String alamat,
+  ) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt('iduser', int.parse(iduser));
+    pref.setString('nama', nama);
+    pref.setString('alamat', alamat);
+  }
+
   void lockTapped(bool status) {
     setState(() {
       if (isSecure) {
@@ -19,6 +87,13 @@ class _LoginScreenState extends State<LoginScreen> {
         isSecure = true;
       }
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    email.text = '';
+    password.text = '';
   }
 
   @override
@@ -68,10 +143,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       //textbox
 
-                      const TextField(
+                      TextField(
+                        controller: email,
                         autocorrect: false,
                         keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           suffixIcon: Icon(
                             Icons.email,
                             color: Colors.blueAccent,
@@ -85,6 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       //Password
                       TextField(
+                        controller: password,
                         // obscureText: isSecure,
                         autocorrect: false,
                         // controller: passController,
@@ -117,8 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               backgroundColor: Colors.blue,
                             ),
                             onPressed: () {
-                              Navigator.of(context)
-                                  .pushReplacementNamed("navbar");
+                              login();
                             },
                             child: Container(
                               alignment: Alignment.center,

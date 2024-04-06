@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../Widget/placeholderDialog.dart';
+import '../Widget/placeholder_dialog.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -24,7 +24,7 @@ class _SettingState extends State<Setting> {
       String buildNumber = _packageInfo.buildNumber;
       String buildSignature = _packageInfo.buildSignature;
     });
-    print("Info : " + _packageInfo.appName.toString());
+    debugPrint("Info : " + _packageInfo.appName.toString());
   }
 
   PackageInfo _packageInfo =
@@ -42,15 +42,15 @@ class _SettingState extends State<Setting> {
     response = await dio
         .get('https://niamyusuf.github.io/appsVersion/tesVersion.json');
     Map result = response.data;
-    print(response.data.toString());
-    print('hasi; ' + result['new_app_version']);
+    debugPrint(response.data.toString());
+    debugPrint('hasi; ' + result['new_app_version']);
     
     // // The below request is the same as above.
     // response = await dio.get(
     //   '/test',
     //   queryParameters: {'id': 12, 'name': 'dio'},
     // );
-    // print(response.data.toString());
+    // debugPrint(response.data.toString());
   }
 
   @override
@@ -90,13 +90,13 @@ class _SettingState extends State<Setting> {
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(ctx).pop(),
-                      child: Text('!Got It'),
+                      child: const Text('!Got It'),
                     ),
                   ],
                 ),
               );
             },
-            child: Text("Tes"))
+            child: const Text("Tes"))
       ],
     );
   }

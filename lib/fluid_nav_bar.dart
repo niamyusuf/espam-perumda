@@ -1,6 +1,6 @@
 import 'package:espam/view/Screens/content/dashboard.dart';
+import 'package:espam/view/Screens/content/information.dart';
 import 'package:espam/view/Screens/content/profile.dart';
-import 'package:espam/view/Screens/content/setting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
@@ -30,17 +30,17 @@ class _NavbarState extends State<Navbar> {
       bottomNavigationBar: FluidNavBar(
         icons: [
           FluidNavBarIcon(
-              icon: Icons.home,
+              icon: Icons.home_outlined,
               backgroundColor: const Color.fromARGB(255, 2, 68, 122),
               extras: {"label": "Home"}),
           FluidNavBarIcon(
-              icon: Icons.account_circle,
+              icon: Icons.account_circle_outlined,
               backgroundColor: const Color.fromARGB(255, 2, 68, 122),
               extras: {"label": "Profile"}),
           FluidNavBarIcon(
-              icon: CupertinoIcons.question_circle,
+              icon: CupertinoIcons.info_circle,
               backgroundColor: const Color.fromARGB(255, 2, 68, 122),
-              extras: {"label": "Tentang"}),
+              extras: {"label": "Informasi"}),
         ],
         onChange: _handleNavigationChange,
         style: const FluidNavBarStyle(
@@ -67,7 +67,7 @@ class _NavbarState extends State<Navbar> {
           _child = const Profile();
           break;
         case 2:
-          _child = const Setting();
+          _child = const Information();
           break;
       }
       _child = AnimatedSwitcher(

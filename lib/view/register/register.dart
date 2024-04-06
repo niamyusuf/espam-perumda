@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../components/background.dart';
+import '../../components/background.dart';
 import '../login/loginx.dart';
 
 class RegisterScreen extends StatelessWidget {
