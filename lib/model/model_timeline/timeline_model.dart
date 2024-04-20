@@ -37,6 +37,7 @@ class DataTimeline {
     int     posisi;
     int     iduser;
     int     idpegawai;
+    String  nnmperumahan;
 
     DataTimeline({
         required this.id,
@@ -48,6 +49,7 @@ class DataTimeline {
         required this.posisi,
         required this.iduser,
         required this.idpegawai,
+        required this.nnmperumahan,
 
     });
 
@@ -61,6 +63,7 @@ class DataTimeline {
         posisi          : int.parse(json["posisi"]),
         iduser          : json["id_user"] == null ? 0 : int.parse(json["id_user"]),
         idpegawai       : json["id_pegawai"] == null ? 0 : int.parse(json["id_pegawai"]),
+        nnmperumahan    : json["nama_perumahan"],
 
     );
 
@@ -72,9 +75,9 @@ class DataTimeline {
         "tgl"             : tgl,
         "is_delete"       : isdelete,
         "posisi"          : posisi,
-        "id_user"          : iduser,
+        "id_user"         : iduser,
         "idpegawai"       : idpegawai,
-
+        "nmperumahan"     : nnmperumahan,
     };
 }
 
@@ -111,20 +114,24 @@ class ListDaftarModel {
 class DataDaftar {
     String     id;
     String  nopendaftaran;
+    String  nmperumahan;
 
     DataDaftar({
         required this.id,
-        required this.nopendaftaran
+        required this.nopendaftaran,
+        required this.nmperumahan
 
     });
 
     factory DataDaftar.fromJson(Map<String, dynamic> json) => DataDaftar(
         id              : json["id"],
-        nopendaftaran   : json["nodaftar"]
+        nopendaftaran   : json["nodaftar"],
+        nmperumahan     : json["nama"]
     );
 
     Map<String, dynamic> toJson() => {
-        "id"         : id,
-        "nodaftar"   : nopendaftaran
+        "id"            : id,
+        "nodaftar"      : nopendaftaran,
+        "nmperumahan"   : nmperumahan
     };
 }

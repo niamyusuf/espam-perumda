@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:espam/controller/controller_timeline/timeline_controller.dart';
 import 'package:espam/model/model_timeline/timeline_model.dart';
+import 'package:espam/view/Screens/Widget/overlay_loader_icon.dart';
 import 'package:espam/view/Screens/content/timeline.dart';
 import 'package:espam/view/timeline/tl_rekomtek.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,8 @@ class _ListRekomtekState extends State<ListRekomtek> {
     debugPrint(pref.getInt('iduser').toString());
     iduser = pref.getInt('iduser');
 
+    showLoadingIndicator();
+
     Map<String, dynamic> daftar = {"iduser": iduser};
 
     final response = await timelineController.getPendaftaran(daftar);
@@ -39,11 +42,13 @@ class _ListRekomtekState extends State<ListRekomtek> {
       setState(() {
         daftarList = response.data.toList();
         jmlItem = daftarList.length;
+        hideOpenDialog();
       });
 
       // print(daftarList[0].id);
       // print(daftarList.length);
     } else {
+      hideOpenDialog();
       jmlItem = 0;
       print(response.code.toString());
     }
@@ -53,6 +58,26 @@ class _ListRekomtekState extends State<ListRekomtek> {
   void initState() {
     super.initState();
     getData();
+  }
+
+  void showLoadingIndicator() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return OverlayLoaderWithAppIcon(
+          isLoading: true,
+          appIcon: Image.asset(
+            'assets/images/tde.png',
+          ),
+          child: Container(),
+        );
+      },
+    );
+  }
+
+  void hideOpenDialog() {
+    Navigator.of(context).pop();
   }
 
   @override
@@ -104,24 +129,40 @@ class _ListRekomtekState extends State<ListRekomtek> {
                     scrollDirection: Axis.vertical,
                     itemCount: daftarList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        color: Colors.white,
-                        elevation: 2,
-                        // shape: Border.all(color: Colors.grey, width: 2),
-                        child: ListTile(
-                          title: Text(daftarList[index].nopendaftaran),
-                          subtitle: Text(daftarList[index].id),
-                          trailing: const Icon(Icons.navigate_next),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TlSpam(
-                                  nodaftar: daftarList[index].nopendaftaran,
-                                ),
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          color: Colors.white,
+                          elevation: 2,
+                          // shape: Border.all(color: Colors.grey, width: 2),
+                          child: ListTile(
+                            leading: const CircleAvatar(
+                              radius: 15,
+                              backgroundColor: Colors.blue,
+                              child: Text(
+                                "R",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ),
-                            );
-                          },
+                            ),
+                            title: Text(daftarList[index].nopendaftaran),
+                            subtitle: Text(daftarList[index].nmperumahan),
+                            trailing: const Icon(
+                              Icons.navigate_next,
+                              color: Colors.blue,
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TlSpam(
+                                    nodaftar: daftarList[index].nopendaftaran,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       );
                     },
@@ -129,6 +170,11 @@ class _ListRekomtekState extends State<ListRekomtek> {
                 ],
               ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        tooltip: 'New',
+        child: const Icon(Icons.add),
+      ), 
     );
   }
 }

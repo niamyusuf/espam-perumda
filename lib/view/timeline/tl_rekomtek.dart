@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
+import '../Screens/Widget/overlay_loader_icon.dart';
+
 class TlSpam extends StatefulWidget {
   final String? nodaftar;
 
@@ -17,7 +19,13 @@ class TlSpam extends StatefulWidget {
 class _TlSpamState extends State<TlSpam> {
   String? iduser;
   int? jmlItem;
-  int? stsVerifikasi1 = 0;
+  int stsVerifikasi1 = 0;
+  int stsVerifikasi2 = 0;
+  int stsVerifikasi3 = 0;
+  int stsVerifikasi4 = 0;
+  int stsVerifikasi5 = 0;
+  String nopendaftaran = "-";
+  String nmperumahan="";
 
   final timelineController = TimelineController();
   List<DataTimeline> tl = [];
@@ -25,6 +33,7 @@ class _TlSpamState extends State<TlSpam> {
   getDataTL() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     iduser = pref.getInt('iduser').toString();
+    showLoadingIndicator();
 
     Map<String, dynamic> daftarTL = {
       "iduser": iduser,
@@ -35,34 +44,56 @@ class _TlSpamState extends State<TlSpam> {
 
     final response = await timelineController.getTimeLine(daftarTL);
     if (response.code == '200') {
-      // debugPrint(response.toJson().toString());
+      debugPrint(response.toJson().toString());
       tl = response.data.toList();
       jmlItem = tl.length;
 
-      debugPrint(tl[1].toJson().toString());
+      debugPrint("HASIL " + tl[1].toJson().toString());
+
+      nmperumahan = response.data[0].nnmperumahan;
 
       print(jmlItem);
       setState(() {
         stsVerifikasi1 = 0;
+        stsVerifikasi2 = 0;
+        stsVerifikasi3 = 0;
+        stsVerifikasi4 = 0;
+        stsVerifikasi5 = 0;
+        nopendaftaran = widget.nodaftar!;
       });
 
       // // Lakukan perulangan pada data JSON
-      // for (var item in tl) {
-      //   print('Posisi: ${item.posisi}, Verfiikasi: ${item.stsverifikasi}');
-      //   switch (item.posisi) {
-      //     case 1:
-      //       if (item.stsverifikasi == 1) {
-      //         stsVerifikasi1 = Colors.green;
-      //       }
-      //       break;
+      for (var item in tl) {
+        print('Posisi: ${item.posisi}, Verfiikasi: ${item.stsverifikasi}');
+        switch (item.posisi) {
+          case 1:
+            stsVerifikasi1 = item.stsverifikasi;
+            break;
+          case 2:
+            stsVerifikasi2 = item.stsverifikasi;
+            break;
+          case 3:
+            stsVerifikasi3 = item.stsverifikasi;
+            break;
+          case 3:
+            stsVerifikasi4 = item.stsverifikasi;
+            break;
+          case 5:
+            stsVerifikasi5 = item.stsverifikasi;
+            break;
 
-      //     default:
-      //     // stsVerifikasi1 = Colors.grey;
-      //   }
-      // }
-
+          default:
+            stsVerifikasi1 = 0;
+            stsVerifikasi2 = 0;
+            stsVerifikasi3 = 0;
+            stsVerifikasi4 = 0;
+            stsVerifikasi5 = 0;
+        }
+      }
+      hideOpenDialog();
       // print(daftarList.length);
     } else {
+      hideOpenDialog();
       jmlItem = 0;
       print(response.code.toString());
     }
@@ -73,6 +104,56 @@ class _TlSpamState extends State<TlSpam> {
     super.initState();
     getDataTL();
     debugPrint(jmlItem.toString());
+  }
+
+  void showLoadingIndicator2() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // ignore: deprecated_member_use
+        return WillPopScope(
+            onWillPop: () async => false,
+            child: const AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
+              backgroundColor: Colors.black87,
+              content: SizedBox(
+                width: 32,
+                height: 82,
+                child: Center(
+                  child: Column(
+                    children: [
+                      CircularProgressIndicator(),
+                      SizedBox(height: 10,),
+                      Text("Mengambil Data...", style: TextStyle(color: Colors.white),),
+                    ],
+                  ),
+                ),
+              ),
+            ));
+      },
+    );
+  }
+
+  void showLoadingIndicator() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return OverlayLoaderWithAppIcon(
+          isLoading: true,
+          appIcon: Image.asset(
+            'assets/images/tde.png',
+          ),
+          child: Container(),
+        );
+      },
+    );
+  }
+
+  void hideOpenDialog() {
+    Navigator.of(context).pop();
   }
 
   @override
@@ -104,22 +185,41 @@ class _TlSpamState extends State<TlSpam> {
                 ),
                 padding: const EdgeInsets.all(10),
                 width: MediaQuery.of(context).size.width,
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("No. Pedaftaran"),
-                    Text("No. Pedaftaran"),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("No. Pedaftaran : "),
+                        Text(
+                          nopendaftaran,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("Perumahan : "),
+                        Text(
+                          nmperumahan,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
             Container(
               decoration: BoxDecoration(
-                  // color: Colors.green,
-                  border: Border.all(color: Colors.grey, width: 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                // color: Colors.green,
+                border: Border.all(color: Colors.grey, width: 1),
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -127,24 +227,27 @@ class _TlSpamState extends State<TlSpam> {
                     timelineRow(
                         "Pengajuan",
                         "Pengajuan Pengurusan Rekomtek Perumahan",
-                        1,
+                        stsVerifikasi1,
                         Icons.insert_drive_file_outlined),
-                    timelineRow("Verifikasi",
-                        "Verifikasi Kelengkapan Persyaratan", 1, Icons.check),
+                    timelineRow(
+                        "Verifikasi",
+                        "Verifikasi Kelengkapan Persyaratan",
+                        stsVerifikasi2,
+                        Icons.check),
                     timelineRow(
                         "Survey Lapangan",
                         "Survey Lapangan oleh Team Perumahan Perumda Tirta Kanjuruhan",
-                        0,
+                        stsVerifikasi3,
                         Icons.sync),
                     timelineRow(
                         "Expose Hasil Survey",
                         "Penyampaian Hasil Survey oleh Team Perumahan Perumda Tirta Kanjuruhan",
-                        0,
+                        stsVerifikasi4,
                         CupertinoIcons.book),
                     timelineLastRow(
                         "Terbit Rekomtek",
                         "Penerbitan Surat Rekomendasi Teknis Perumahan",
-                        0,
+                        stsVerifikasi5,
                         CupertinoIcons.wand_stars),
                   ],
                 ),

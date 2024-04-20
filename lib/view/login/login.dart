@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextField(
                         controller: email,
                         autocorrect: false,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
                           suffixIcon: Icon(
                             Icons.email,
@@ -162,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       //Password
                       TextField(
                         controller: password,
-                        // obscureText: isSecure,
+                        obscureText: true,
                         autocorrect: false,
                         // controller: passController,
                         decoration: InputDecoration(

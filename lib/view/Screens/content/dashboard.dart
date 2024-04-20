@@ -195,65 +195,70 @@ class _DashboardState extends State<Dashboard> {
                 "http://180.250.162.129:8686/sim/assets/images/rekomtek/slide1.png"),
             const SizedBox(height: 20),
             SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                height: MediaQuery.of(context).size.height * .4,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        itemDashboard(
-                            'Info \n Rekomtek',
-                            CupertinoIcons.doc_text,
-                            Colors.orange,
-                            'listrekomtek'),
-                        itemDashboard('Info \n SPAM',
-                            CupertinoIcons.add_circled, Colors.teal, ''),
-                        itemDashboard('Info \n Alih Kelola',
-                            CupertinoIcons.book, Colors.blue, ''),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        itemDashboard('Persaratan \n Rekomtek',
-                            CupertinoIcons.repeat, Colors.purple, ''),
-                        itemDashboard('Persyaratan \n Alih Kelola',
-                            CupertinoIcons.repeat, Colors.green, ''),
-                      ],
-                    ),
-                  ],
+              child: SafeArea(
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  height: MediaQuery.of(context).size.height * .4,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 5),
+                          color: Theme.of(context).primaryColor.withOpacity(.2),
+                          spreadRadius: 2,
+                          blurRadius: 2)
+                    ],
+                  ),
+                  child:
+                      // Column(
+                      //   children: [
+                      //     Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       children: [
+                      //         itemDashboard(
+                      //             'Info \n Rekomtek',
+                      //             CupertinoIcons.doc_text,
+                      //             Colors.orange,
+                      //             'listrekomtek'),
+                      //         itemDashboard('Info \n SPAM',
+                      //             CupertinoIcons.add_circled, Colors.teal, ''),
+                      //         itemDashboard('Info \n Alih Kelola',
+                      //             CupertinoIcons.book, Colors.blue, ''),
+                      //       ],
+                      //     ),
+                      //     const SizedBox(
+                      //       height: 10,
+                      //     ),
+                      //     Row(
+                      //       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       children: [
+                      //         itemDashboard('Persaratan \n Rekomtek',
+                      //             CupertinoIcons.repeat, Colors.purple, ''),
+                      //         itemDashboard('Persyaratan \n Alih Kelola',
+                      //             CupertinoIcons.repeat, Colors.green, ''),
+                      //       ],
+                      //     ),
+                      //   ],
+                      // ),
+
+                      GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: MediaQuery.of(context).size.width >= 400 ? 3 : 2,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
+                    children: [
+                      itemDashboard('Info \n Rekomtek ', CupertinoIcons.doc_text,
+                          Colors.orange, 'listrekomtek'),
+                      itemDashboard('Info \n SPAM', CupertinoIcons.add_circled,
+                          Colors.blue, ''),
+                      itemDashboard('Info \n Alih Kelola', CupertinoIcons.book,
+                          Colors.green, ''),
+                      itemDashboard('Persaratan \n Rekomtek',
+                          CupertinoIcons.repeat, Colors.purple, ''),
+                      itemDashboard('Persyaratan \n Alih Kelola',
+                          CupertinoIcons.repeat, Colors.green, ''),
+                    ],
+                  ),
                 ),
-                // GridView.count(
-                //   shrinkWrap: true,
-                //   crossAxisCount: 3,
-                //   crossAxisSpacing: 20,
-                //   mainAxisSpacing: 20,
-                //   children: [
-                //     itemDashboard('Pengajuan \n Rekomtek', CupertinoIcons.doc_text,
-                //         Colors.orange, 'stsRekomtek'),
-                //     itemDashboard(
-                //         'Data \n Perumahan', CupertinoIcons.book, Colors.blue, ''),
-                //     itemDashboard(
-                //         'Cek Status', CupertinoIcons.repeat, Colors.green, ''),
-                //     itemDashboard('Pengajuan \n SPAM', CupertinoIcons.add_circled,
-                //         Colors.teal, ''),
-                //     itemDashboard('Tahapan \n Proses', CupertinoIcons.repeat,
-                //         Colors.purple, ''),
-                //     // itemDashboard('Revenue', CupertinoIcons.money_dollar_circle,
-                //     //     Colors.indigo),
-                //     // itemDashboard(
-                //     //     'Upload', CupertinoIcons.add_circled, Colors.teal),
-                //     // itemDashboard(
-                //     //     'About', CupertinoIcons.question_circle, Colors.blue),
-                //     itemDashboard(
-                //         'Kontak', CupertinoIcons.phone, Colors.pinkAccent, ''),
-                //   ],
-                // ),
               ),
             ),
             // const SizedBox(height: 10),
@@ -270,7 +275,9 @@ class _DashboardState extends State<Dashboard> {
                       child: Text(
                         "Layanan",
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold,),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -390,13 +397,14 @@ class _DashboardState extends State<Dashboard> {
                   child: Icon(
                     iconData,
                     color: Colors.white,
-                    size: 35,
+                    size: MediaQuery.of(context).size.width >= 400 ? MediaQuery.of(context).size.width / 15 : MediaQuery.of(context).size.width / 8,
                   )),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Text(title.toUpperCase(),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.fade,
-                  style: const TextStyle(fontSize: 14.0)),
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width >= 400 ? MediaQuery.of(context).size.width / 35 : MediaQuery.of(context).size.width / 28)),
             ],
           ),
         ),
