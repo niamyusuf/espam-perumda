@@ -44,6 +44,7 @@ dependencies:
   package_info_plus: ^5.0.1
   shared_preferences: ^2.2.2
   timeline_tile:
+  another_flutter_splash_screen: ^1.2.0
 
 dev_dependencies:
   flutter_test:

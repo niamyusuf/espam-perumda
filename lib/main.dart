@@ -1,11 +1,14 @@
 import 'package:espam/view/Screens/content/dashboard.dart';
-import 'package:espam/view/timeline/listrekomtek.dart';
+import 'package:espam/view/rekomtek/listrekomtek.dart';
 import 'package:espam/view/timeline/tl_rekomtek.dart';
 import 'package:flutter/material.dart';
 
-import 'view/Screens/content/timeline.dart';
+import 'splashscreen.dart';
+import 'view/alihkelola/list_alihkelola.dart';
+import 'view/rekomtek/frm_new_rekomtek.dart';
 import 'view/login/login.dart';
 import 'fluid_nav_bar.dart';
+import 'view/sipa/list_sipa.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,12 +29,15 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        // "/": (ctx) => SplashScreen(),
-        "/": (ctx) => const LoginScreen(),
+        "/": (ctx) => const SplashScreen(),
+        "login": (ctx) => const LoginScreen(),
         "navbar": (ctx) => const Navbar(),
         "dasboard": (ctx) => const Dashboard(),
         "listrekomtek": (ctx) => const ListRekomtek(),
-        "stsRekomtek": (ctx) => const TlSpam(nodaftar: '',),
+        "daftar_rekomtek": (ctx) => const FormDaftarRekomtek(),
+        "listAlihKelola": (ctx) => const ListAlihKelola(),
+        "listSipa": (ctx) => const ListSipa(),
+        
       },
       // home: const LoginScreen(),
     );

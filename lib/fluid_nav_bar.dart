@@ -1,9 +1,13 @@
+import 'package:espam/view/Screens/Widget/overlay_loader_icon.dart';
 import 'package:espam/view/Screens/content/dashboard.dart';
 import 'package:espam/view/Screens/content/information.dart';
 import 'package:espam/view/Screens/content/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'view/login/login.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});
@@ -15,10 +19,63 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   Widget? _child;
 
+  Future cekLogin() async {
+    // debugPrint("STS LOGIN");
+
+    // showLoadingIndicator();
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    debugPrint("STS LOGIN ${pref.getBool("isLogin")}");
+    
+    if (pref.getBool("isLogin") == false) {
+      pref.setString('iduser', '');
+      pref.setString('nama', '');
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) {
+          return const LoginScreen();
+        }),
+      );
+    }else{
+      debugPrint("LOGIN ${pref.getBool("isLogin")}");
+    }
+  }
+
+  Future cekUser() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.getString("iduser") == null) {
+      pref.setBool("isLogin", false);
+      pref.setString('iduser', '');
+      pref.setString('nama', '');
+    }
+  }
+
+  void showLoadingIndicator() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return OverlayLoaderWithAppIcon(
+          isLoading: true,
+          appIcon: Image.asset(
+            'assets/images/tde.png',
+          ),
+          child: Container(),
+        );
+      },
+    );
+  }
+
+  void hideOpenDialog() {
+    Navigator.of(context).pop();
+  }
+
   @override
   void initState() {
+    cekLogin();
     _child = const Dashboard();
     super.initState();
+    // cekUser();
+    
+    // hideOpenDialog();
   }
 
   @override

@@ -1,6 +1,9 @@
+import 'package:espam/view/Screens/Widget/overlay_loader_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../login/login.dart';
 import '../Widget/custom_slider.dart';
 
 class Dashboard extends StatefulWidget {
@@ -11,6 +14,9 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
+  
+
   @override
   void initState() {
     super.initState();
@@ -198,14 +204,14 @@ class _DashboardState extends State<Dashboard> {
               child: SafeArea(
                 child: Container(
                   padding: const EdgeInsets.all(10),
-                  height: MediaQuery.of(context).size.height * .4,
+                  height: 258,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
                           offset: const Offset(0, 5),
                           color: Theme.of(context).primaryColor.withOpacity(.2),
                           spreadRadius: 2,
-                          blurRadius: 2)
+                          blurRadius: 0)
                     ],
                   ),
                   child:
@@ -242,18 +248,24 @@ class _DashboardState extends State<Dashboard> {
 
                       GridView.count(
                     shrinkWrap: true,
-                    crossAxisCount: MediaQuery.of(context).size.width >= 400 ? 3 : 2,
+                    crossAxisCount:
+                        MediaQuery.of(context).size.width >= 380 ? 3 : 2,
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20,
                     children: [
-                      itemDashboard('Info \n Rekomtek ', CupertinoIcons.doc_text,
-                          Colors.orange, 'listrekomtek'),
-                      itemDashboard('Info \n SPAM', CupertinoIcons.add_circled,
-                          Colors.blue, ''),
+                      itemDashboard(
+                          'Info \n Rekomtek ',
+                          CupertinoIcons.doc_text,
+                          Colors.orange,
+                          'listrekomtek'),
+                      itemDashboard('Info \n SIPA', CupertinoIcons.add_circled,
+                          Colors.blue, 'listSipa'),
                       itemDashboard('Info \n Alih Kelola', CupertinoIcons.book,
-                          Colors.green, ''),
+                          Colors.green, 'listAlihKelola'),
                       itemDashboard('Persaratan \n Rekomtek',
                           CupertinoIcons.repeat, Colors.purple, ''),
+                      itemDashboard('Persyaratan \n Ijin SIPA',
+                          CupertinoIcons.repeat, Colors.brown, ''),
                       itemDashboard('Persyaratan \n Alih Kelola',
                           CupertinoIcons.repeat, Colors.green, ''),
                     ],
@@ -397,14 +409,18 @@ class _DashboardState extends State<Dashboard> {
                   child: Icon(
                     iconData,
                     color: Colors.white,
-                    size: MediaQuery.of(context).size.width >= 400 ? MediaQuery.of(context).size.width / 15 : MediaQuery.of(context).size.width / 8,
+                    size: MediaQuery.of(context).size.width >= 380
+                        ? MediaQuery.of(context).size.width / 20
+                        : MediaQuery.of(context).size.width / 8,
                   )),
               const SizedBox(height: 10),
               Text(title.toUpperCase(),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.fade,
                   style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width >= 400 ? MediaQuery.of(context).size.width / 35 : MediaQuery.of(context).size.width / 28)),
+                      fontSize: MediaQuery.of(context).size.width >= 380
+                          ? MediaQuery.of(context).size.width / 35
+                          : MediaQuery.of(context).size.width / 28)),
             ],
           ),
         ),

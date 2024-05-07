@@ -112,26 +112,30 @@ class ListDaftarModel {
 }
 
 class DataDaftar {
-    String     id;
+    String  id;
     String  nopendaftaran;
     String  nmperumahan;
+    int     stsajuan;
 
     DataDaftar({
         required this.id,
         required this.nopendaftaran,
-        required this.nmperumahan
+        required this.nmperumahan,
+        required this.stsajuan
 
     });
 
     factory DataDaftar.fromJson(Map<String, dynamic> json) => DataDaftar(
         id              : json["id"],
         nopendaftaran   : json["nodaftar"],
-        nmperumahan     : json["nama"]
+        nmperumahan     : json["nama"],
+        stsajuan        : int.parse(json["sts_ajuan"]),
     );
 
     Map<String, dynamic> toJson() => {
         "id"            : id,
         "nodaftar"      : nopendaftaran,
-        "nmperumahan"   : nmperumahan
+        "nmperumahan"   : nmperumahan,
+        "stsajuan"      : stsajuan
     };
 }

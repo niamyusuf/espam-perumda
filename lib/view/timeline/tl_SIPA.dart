@@ -1,23 +1,23 @@
 
-import 'package:espam/controller/controller/rekomtek_controller.dart';
-import 'package:espam/model/model/rekomtek_model.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
+import '../../controller/controller/sipa_controller.dart';
+import '../../model/model/sipa_model.dart';
 import '../Screens/Widget/overlay_loader_icon.dart';
 
-class TlSpam extends StatefulWidget {
+class TlSipa extends StatefulWidget {
   final String? nodaftar;
 
-  const TlSpam({super.key, required this.nodaftar});
+  const TlSipa({super.key, required this.nodaftar});
 
   @override
-  State<TlSpam> createState() => _TlSpamState();
+  State<TlSipa> createState() => _TlSipaState();
 }
 
-class _TlSpamState extends State<TlSpam> {
+class _TlSipaState extends State<TlSipa> {
   String? iduser;
   int? jmlItem;
   int stsVerifikasi1 = 0;
@@ -28,13 +28,11 @@ class _TlSpamState extends State<TlSpam> {
   int stsVerifikasi6 = 0;
   int stsVerifikasi7 = 0;
   int stsVerifikasi8 = 0;
-  int stsVerifikasi9 = 0;
-
   String nopendaftaran = "-";
-  String nmperumahan="";
+  String pemohon="";
 
-  final timelineController = TimelineController();
-  List<DataTimeline> tl = [];
+  final akController = SipaController();
+  List<DataSipaTL> tl = [];
 
   getDataTL() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -48,7 +46,7 @@ class _TlSpamState extends State<TlSpam> {
 
     debugPrint(daftarTL.toString());
 
-    final response = await timelineController.getTimeLine(daftarTL);
+    final response = await akController.getTimeLine(daftarTL);
     if (response.code == '200') {
       debugPrint(response.toJson().toString());
       tl = response.data.toList();
@@ -56,7 +54,7 @@ class _TlSpamState extends State<TlSpam> {
 
       // debugPrint("HASIL " + tl[1].toJson().toString());
 
-      nmperumahan = response.data[0].nnmperumahan;
+      pemohon = response.data[0].nmpemohon;
 
       print(jmlItem);
       setState(() {
@@ -68,7 +66,6 @@ class _TlSpamState extends State<TlSpam> {
         stsVerifikasi6 = 0;
         stsVerifikasi7 = 0;
         stsVerifikasi8 = 0;
-        stsVerifikasi9 = 0;
         nopendaftaran = widget.nodaftar!;
       });
 
@@ -101,7 +98,6 @@ class _TlSpamState extends State<TlSpam> {
             stsVerifikasi6 = 0;
             stsVerifikasi7 = 0;
             stsVerifikasi8 = 0;
-            stsVerifikasi9 = 0;
         }
       }
       hideOpenDialog();
@@ -218,9 +214,9 @@ class _TlSpamState extends State<TlSpam> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Perumahan : "),
+                          const Text("Pemohon : "),
                           Text(
-                            nmperumahan,
+                            pemohon,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -241,7 +237,7 @@ class _TlSpamState extends State<TlSpam> {
                     children: [
                       timelineRow(
                           "Pengajuan",
-                          "Pengajuan Pengurusan Rekomtek Perumahan",
+                          "Pengajuan Ijin SIPA",
                           stsVerifikasi1,
                           Icons.insert_drive_file_outlined),
                       timelineRow(
@@ -250,55 +246,35 @@ class _TlSpamState extends State<TlSpam> {
                           stsVerifikasi2,
                           Icons.check),
                       timelineRow(
-                          "Survey Lapangan",
-                          "Survey Lapangan oleh Team Perumahan Perumda Tirta Kanjuruhan",
+                          "Survey Analisa",
+                          "Survey Lapangan oleh Team Perumahan Perumda Tirta Kanjuruhan bersama Pemohon",
                           stsVerifikasi3,
                           Icons.sync),
                       timelineRow(
-                          "Expose Hasil Survey",
+                          "Rapat Expose",
                           "Penyampaian Hasil Survey oleh Team Perumahan Perumda Tirta Kanjuruhan",
                           stsVerifikasi4,
-                          CupertinoIcons.book),
-                      timelineLastRow(
-                          "Terbit Rekomtek",
-                          "Penerbitan Surat Rekomendasi Teknis Perumahan",
+                          CupertinoIcons.speaker_1),
+                      timelineRow(
+                          "Persetujuan",
+                          "Penandatanganan BA yang telah disetujui Pemohon",
                           stsVerifikasi5,
-                          CupertinoIcons.wand_stars),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10,),
-              Container(
-                decoration: BoxDecoration(
-                  // color: Colors.green,
-                  border: Border.all(color: Colors.grey, width: 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      timelineRow(
-                          "Pengajuan SPAM",
-                          "Pengajuan SPAM dilengkapi Site Plan dan DED",
-                          stsVerifikasi6,
-                          Icons.insert_drive_file_outlined),
-                      timelineRow(
-                          "Expose",
-                          "Penjelasan ketentuan SPAM, Review DED dan RAB",
-                          stsVerifikasi7,
-                          Icons.check),
+                          CupertinoIcons.hammer),
                       timelineRow(
                           "Pembayaran",
-                          "Pemohonan membayar tagihan secara Non Tunai ke rekening Perumda Tirta Kanjuruhan.",
-                          stsVerifikasi8,
-                          Icons.credit_card),
+                          "Pemohon Melakukan pembayran secara Non Tunai ke Rekening Perumda Tirta Kanjuruhan",
+                          stsVerifikasi6,
+                          CupertinoIcons.creditcard),
+                      timelineRow(
+                          "Standarisasi",
+                          "Perumda Tirta Kanjuruhan melakukan standarisasi prasarana air minum",
+                          stsVerifikasi7,
+                          CupertinoIcons.doc_text_search),
                       timelineLastRow(
-                          "Pengawasan dan Pelaksanaan",
-                          "Pengawasan atau Pelaksanaan Pembangunan SPAM",
-                          stsVerifikasi9,
-                          Icons.sync),
+                          "Terbit Rekening",
+                          "Penerbitan tagihan rekening air pelanggan baru",
+                          stsVerifikasi8,
+                          Icons.wallet),
                     ],
                   ),
                 ),

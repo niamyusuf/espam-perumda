@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:espam/api.dart';
-import 'package:espam/model/model_timeline/timeline_model.dart';
+import 'package:espam/model/model/rekomtek_model.dart';
 import 'package:flutter/material.dart';
 
 

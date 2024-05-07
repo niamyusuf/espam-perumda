@@ -1,23 +1,24 @@
 
-import 'package:espam/controller/controller/rekomtek_controller.dart';
+
 import 'package:espam/model/model/rekomtek_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
+import '../../controller/controller/alihkelola_controller.dart';
+import '../../model/model/alihkelola_model.dart';
 import '../Screens/Widget/overlay_loader_icon.dart';
 
-class TlSpam extends StatefulWidget {
+class TlAlihKelola extends StatefulWidget {
   final String? nodaftar;
 
-  const TlSpam({super.key, required this.nodaftar});
+  const TlAlihKelola({super.key, required this.nodaftar});
 
   @override
-  State<TlSpam> createState() => _TlSpamState();
+  State<TlAlihKelola> createState() => _TlAlihKelolaState();
 }
 
-class _TlSpamState extends State<TlSpam> {
+class _TlAlihKelolaState extends State<TlAlihKelola> {
   String? iduser;
   int? jmlItem;
   int stsVerifikasi1 = 0;
@@ -25,16 +26,11 @@ class _TlSpamState extends State<TlSpam> {
   int stsVerifikasi3 = 0;
   int stsVerifikasi4 = 0;
   int stsVerifikasi5 = 0;
-  int stsVerifikasi6 = 0;
-  int stsVerifikasi7 = 0;
-  int stsVerifikasi8 = 0;
-  int stsVerifikasi9 = 0;
-
   String nopendaftaran = "-";
   String nmperumahan="";
 
-  final timelineController = TimelineController();
-  List<DataTimeline> tl = [];
+  final akController = AlihKelolaController();
+  List<DataAkTL> tl = [];
 
   getDataTL() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -48,7 +44,7 @@ class _TlSpamState extends State<TlSpam> {
 
     debugPrint(daftarTL.toString());
 
-    final response = await timelineController.getTimeLine(daftarTL);
+    final response = await akController.getTimeLine(daftarTL);
     if (response.code == '200') {
       debugPrint(response.toJson().toString());
       tl = response.data.toList();
@@ -65,10 +61,6 @@ class _TlSpamState extends State<TlSpam> {
         stsVerifikasi3 = 0;
         stsVerifikasi4 = 0;
         stsVerifikasi5 = 0;
-        stsVerifikasi6 = 0;
-        stsVerifikasi7 = 0;
-        stsVerifikasi8 = 0;
-        stsVerifikasi9 = 0;
         nopendaftaran = widget.nodaftar!;
       });
 
@@ -98,10 +90,6 @@ class _TlSpamState extends State<TlSpam> {
             stsVerifikasi3 = 0;
             stsVerifikasi4 = 0;
             stsVerifikasi5 = 0;
-            stsVerifikasi6 = 0;
-            stsVerifikasi7 = 0;
-            stsVerifikasi8 = 0;
-            stsVerifikasi9 = 0;
         }
       }
       hideOpenDialog();
@@ -264,41 +252,6 @@ class _TlSpamState extends State<TlSpam> {
                           "Penerbitan Surat Rekomendasi Teknis Perumahan",
                           stsVerifikasi5,
                           CupertinoIcons.wand_stars),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10,),
-              Container(
-                decoration: BoxDecoration(
-                  // color: Colors.green,
-                  border: Border.all(color: Colors.grey, width: 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      timelineRow(
-                          "Pengajuan SPAM",
-                          "Pengajuan SPAM dilengkapi Site Plan dan DED",
-                          stsVerifikasi6,
-                          Icons.insert_drive_file_outlined),
-                      timelineRow(
-                          "Expose",
-                          "Penjelasan ketentuan SPAM, Review DED dan RAB",
-                          stsVerifikasi7,
-                          Icons.check),
-                      timelineRow(
-                          "Pembayaran",
-                          "Pemohonan membayar tagihan secara Non Tunai ke rekening Perumda Tirta Kanjuruhan.",
-                          stsVerifikasi8,
-                          Icons.credit_card),
-                      timelineLastRow(
-                          "Pengawasan dan Pelaksanaan",
-                          "Pengawasan atau Pelaksanaan Pembangunan SPAM",
-                          stsVerifikasi9,
-                          Icons.sync),
                     ],
                   ),
                 ),

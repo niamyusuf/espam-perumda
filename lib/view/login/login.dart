@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (user.code == '200') {
       isLogin = true;
-      _saveLoginSuccess(user.data[0].iduser, user.data[0].nama, user.data[0].alamat);
+      _saveLoginSuccess(user.data[0].iduser, user.data[0].nama, user.data[0].alamat, isLogin==true);
 
       SharedPreferences pref = await SharedPreferences.getInstance();
       debugPrint(pref.getString('nama'));
@@ -72,11 +72,13 @@ class _LoginScreenState extends State<LoginScreen> {
     String iduser,
     String nama,
     String alamat,
+    bool isLogin
   ) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setInt('iduser', int.parse(iduser));
     pref.setString('nama', nama);
     pref.setString('alamat', alamat);
+    pref.setBool('isLogin', isLogin);
   }
 
   void lockTapped(bool status) {
@@ -89,11 +91,31 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  cekLogin() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    debugPrint("STS LOGIN ${pref.getBool("isLogin")}");
+    return;
+  }
+
   @override
-  void dispose() {
+  void initState() {
+    super.initState();
+    cekLogin();
+  }
+
+  @override
+  void dispose() async {
     super.dispose();
     email.text = '';
     password.text = '';
+    // isLogin = false;
+
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+    // pref.setInt('iduser', 0);
+    // pref.setString('nama', '');
+    // pref.setString('alamat', '');
+    // pref.setBool('isLogin', false);
+
   }
 
   @override
