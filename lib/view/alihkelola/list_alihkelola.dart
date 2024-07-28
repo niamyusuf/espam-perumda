@@ -18,6 +18,7 @@ class ListAlihKelola extends StatefulWidget {
 
 class _ListAlihKelolaState extends State<ListAlihKelola> {
   int? iduser;
+  int? isRole;
   String? code;
   int? jmlItem;
 
@@ -29,10 +30,11 @@ class _ListAlihKelolaState extends State<ListAlihKelola> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     debugPrint(pref.getInt('iduser').toString());
     iduser = pref.getInt('iduser');
+    isRole = pref.getInt('isRole');
 
     showLoadingIndicator();
 
-    Map<String, dynamic> daftar = {"iduser": iduser};
+    Map<String, dynamic> daftar = {"iduser": iduser, "is_role": isRole};
 
     final response = await akController.getData(daftar);
     // debugPrint(response.data.toString());

@@ -17,6 +17,7 @@ class ListRekomtek extends StatefulWidget {
 
 class _ListRekomtekState extends State<ListRekomtek> {
   int? iduser;
+  int? isRole;
   String? code;
   int? jmlItem;
 
@@ -28,10 +29,11 @@ class _ListRekomtekState extends State<ListRekomtek> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     debugPrint(pref.getInt('iduser').toString());
     iduser = pref.getInt('iduser');
+    isRole = pref.getInt('isRole');
 
     showLoadingIndicator();
 
-    Map<String, dynamic> daftar = {"iduser": iduser};
+    Map<String, dynamic> daftar = {"iduser": iduser, "is_role": isRole};
 
     final response = await timelineController.getPendaftaran(daftar);
     debugPrint(response.data.toString());

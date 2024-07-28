@@ -52,6 +52,7 @@ class DataUser {
     String npwp;
     dynamic fcNpwp;
     dynamic fcKtp;
+    String isRole;
 
     DataUser({
         required this.iduser,
@@ -78,6 +79,7 @@ class DataUser {
         required this.npwp,
         required this.fcNpwp,
         required this.fcKtp,
+        required this.isRole,
     });
 
     factory DataUser.fromJson(Map<String, dynamic> json) => DataUser(
@@ -105,6 +107,7 @@ class DataUser {
         npwp: json["npwp"],
         fcNpwp: json["fc_npwp"],
         fcKtp: json["fc_ktp"],
+        isRole: json["is_role"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -132,5 +135,6 @@ class DataUser {
         "npwp": npwp,
         "fc_npwp": fcNpwp,
         "fc_ktp": fcKtp,
+        "is_role": isRole,
     };
 }

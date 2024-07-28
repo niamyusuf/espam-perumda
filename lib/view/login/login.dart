@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (user.code == '200') {
       isLogin = true;
-      _saveLoginSuccess(user.data[0].iduser, user.data[0].nama, user.data[0].alamat, isLogin==true);
+      _saveLoginSuccess(user.data[0].iduser, user.data[0].nama, user.data[0].alamat, user.data[0].isRole, isLogin==true);
 
       SharedPreferences pref = await SharedPreferences.getInstance();
       debugPrint(pref.getString('nama'));
@@ -72,6 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
     String iduser,
     String nama,
     String alamat,
+    String isRole,
     bool isLogin
   ) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -79,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
     pref.setString('nama', nama);
     pref.setString('alamat', alamat);
     pref.setBool('isLogin', isLogin);
+    pref.setInt('isRole', int.parse(isRole));
   }
 
   void lockTapped(bool status) {

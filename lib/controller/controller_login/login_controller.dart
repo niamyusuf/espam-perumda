@@ -53,7 +53,7 @@ class LoginController {
         // debugPrint(response.data['message'].toString());
         var jsonString = jsonDecode(response.data.toString());
         // Map<String, dynamic> jsonString = json.decode(response.data);
-        // debugPrint(jsonString);
+        // debugPrint(jsonEncode(jsonString));
         return LoginModel.fromJson(jsonString);
         // return x;
       } else {
