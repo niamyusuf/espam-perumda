@@ -249,7 +249,7 @@ class _DashboardState extends State<Dashboard> {
                       GridView.count(
                     shrinkWrap: true,
                     crossAxisCount:
-                        MediaQuery.of(context).size.width >= 380 ? 3 : 2,
+                        MediaQuery.of(context).size.width >= 380 ? 3 : 3,
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20,
                     children: [
@@ -397,31 +397,33 @@ class _DashboardState extends State<Dashboard> {
             //       blurRadius: 2)
             // ],
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: background,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    iconData,
-                    color: Colors.white,
-                    size: MediaQuery.of(context).size.width >= 380
-                        ? MediaQuery.of(context).size.width / 20
-                        : MediaQuery.of(context).size.width / 8,
-                  )),
-              const SizedBox(height: 10),
-              Text(title.toUpperCase(),
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.fade,
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width >= 380
-                          ? MediaQuery.of(context).size.width / 35
-                          : MediaQuery.of(context).size.width / 28)),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: background,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      iconData,
+                      color: Colors.white,
+                      size: MediaQuery.of(context).size.width >= 380
+                          ? MediaQuery.of(context).size.width / 20
+                          : MediaQuery.of(context).size.width / 15,
+                    )),
+                const SizedBox(height: 6),
+                Text(title.toUpperCase(),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.fade,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width >= 380
+                            ? MediaQuery.of(context).size.width / 35
+                            : MediaQuery.of(context).size.width / 35)),
+              ],
+            ),
           ),
         ),
       );

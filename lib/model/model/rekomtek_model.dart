@@ -38,6 +38,7 @@ class DataTimeline {
     int     iduser;
     int     idpegawai;
     String  nnmperumahan;
+    String  note;
 
     DataTimeline({
         required this.id,
@@ -50,7 +51,7 @@ class DataTimeline {
         required this.iduser,
         required this.idpegawai,
         required this.nnmperumahan,
-
+        required this.note,
     });
 
     factory DataTimeline.fromJson(Map<String, dynamic> json) => DataTimeline(
@@ -64,6 +65,7 @@ class DataTimeline {
         iduser          : json["id_user"] == null ? 0 : int.parse(json["id_user"]),
         idpegawai       : json["id_pegawai"] == null ? 0 : int.parse(json["id_pegawai"]),
         nnmperumahan    : json["nama_perumahan"],
+        note            : json["note"] == null ? "-" : json["note"].toString(),
 
     );
 
@@ -78,6 +80,7 @@ class DataTimeline {
         "id_user"         : iduser,
         "idpegawai"       : idpegawai,
         "nmperumahan"     : nnmperumahan,
+        "note"            : note,
     };
 }
 
@@ -115,13 +118,15 @@ class DataDaftar {
     String  id;
     String  nopendaftaran;
     String  nmperumahan;
+    String  note;
     int     stsajuan;
 
     DataDaftar({
         required this.id,
         required this.nopendaftaran,
         required this.nmperumahan,
-        required this.stsajuan
+        required this.stsajuan,
+        required this.note
 
     });
 
@@ -129,6 +134,7 @@ class DataDaftar {
         id              : json["id"],
         nopendaftaran   : json["nodaftar"],
         nmperumahan     : json["nama"],
+        note            : json["note"]==null ? "" : json["note"].toString(),
         stsajuan        : int.parse(json["sts_ajuan"]),
     );
 
@@ -136,6 +142,7 @@ class DataDaftar {
         "id"            : id,
         "nodaftar"      : nopendaftaran,
         "nmperumahan"   : nmperumahan,
-        "stsajuan"      : stsajuan
+        "stsajuan"      : stsajuan,
+        "note"          : note
     };
 }

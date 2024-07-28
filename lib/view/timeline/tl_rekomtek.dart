@@ -1,4 +1,3 @@
-
 import 'package:espam/controller/controller/rekomtek_controller.dart';
 import 'package:espam/model/model/rekomtek_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
+import '../Screens/Widget/msgbox.dart';
 import '../Screens/Widget/overlay_loader_icon.dart';
 
 class TlSpam extends StatefulWidget {
@@ -31,7 +31,8 @@ class _TlSpamState extends State<TlSpam> {
   int stsVerifikasi9 = 0;
 
   String nopendaftaran = "-";
-  String nmperumahan="";
+  String nmperumahan = "";
+  String note = "";
 
   final timelineController = TimelineController();
   List<DataTimeline> tl = [];
@@ -54,7 +55,7 @@ class _TlSpamState extends State<TlSpam> {
       tl = response.data.toList();
       jmlItem = tl.length;
 
-      // debugPrint("HASIL " + tl[1].toJson().toString());
+      // debugPrint("HASIL " + tl[2].toJson().toString());
 
       nmperumahan = response.data[0].nnmperumahan;
 
@@ -70,11 +71,14 @@ class _TlSpamState extends State<TlSpam> {
         stsVerifikasi8 = 0;
         stsVerifikasi9 = 0;
         nopendaftaran = widget.nodaftar!;
+        
       });
 
       // // Lakukan perulangan pada data JSON
       for (var item in tl) {
-        print('Posisi: ${item.posisi}, Verfiikasi: ${item.stsverifikasi}');
+        print('Posisi: ${item.posisi}, Verfiikasi: ${item.stsverifikasi}, note :${item.note}');
+        note = item.note;
+        
         switch (item.posisi) {
           case 1:
             stsVerifikasi1 = item.stsverifikasi;
@@ -139,8 +143,13 @@ class _TlSpamState extends State<TlSpam> {
                   child: Column(
                     children: [
                       CircularProgressIndicator(),
-                      SizedBox(height: 10,),
-                      Text("Mengambil Data...", style: TextStyle(color: Colors.white),),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Mengambil Data...",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ],
                   ),
                 ),
@@ -268,7 +277,9 @@ class _TlSpamState extends State<TlSpam> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Container(
                 decoration: BoxDecoration(
                   // color: Colors.green,
@@ -326,7 +337,11 @@ class _TlSpamState extends State<TlSpam> {
                 width: 35,
                 height: 35,
                 decoration: BoxDecoration(
-                  color: isVerifikasi == 0 ? Colors.grey : isVerifikasi == 1 ? Colors.green : Colors.red,
+                  color: isVerifikasi == 0
+                      ? Colors.grey
+                      : isVerifikasi == 1
+                          ? Colors.green
+                          : Colors.red,
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -338,7 +353,11 @@ class _TlSpamState extends State<TlSpam> {
                 width: 5,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: isVerifikasi == 0 ? Colors.grey : isVerifikasi == 1 ? Colors.green : Colors.grey,
+                  color: isVerifikasi == 0
+                      ? Colors.grey
+                      : isVerifikasi == 1
+                          ? Colors.green
+                          : Colors.grey,
                   shape: BoxShape.rectangle,
                 ),
                 child: const Text(""),
@@ -353,6 +372,22 @@ class _TlSpamState extends State<TlSpam> {
               ListTile(
                 title: Text(title),
                 subtitle: Text(subTile),
+                onTap: () {
+                  isVerifikasi > 1 ?
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return MsgBoxOk(
+                        title: 'Tidak disetujui',
+                        content: note,
+                        onConfirm: () {
+                          // Handle confirmation action here
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                      );
+                    },
+                  ):"";
+                },
               ),
             ],
           ),
